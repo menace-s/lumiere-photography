@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — Bent Ginsburg Psychologist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     1. PRIMITIVE TOKENS
+     ============================================ */
+  :root{
+    --color-cream-50:#F6F4EE;
+    --color-cream-100:#EFEBDF;
+    --color-tan-300:#D8CDB8;
+    --color-white:#FFFFFF;
+    --color-black-900:#1C1B18;
+    --color-gray-600:#6F6C64;
+    --color-gray-300:#D9D5C9;
+    --color-olive-600:#58643F;
+    --color-olive-700:#434C30;
+    --color-olive-100:#E4E8DA;
+
+    --font-heading:"Poppins",sans-serif;
+    --font-body:"Inter",sans-serif;
+
+    --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+    --space-5:24px; --space-6:32px; --space-7:48px; --space-8:64px;
+    --space-9:96px; --space-10:128px;
+
+    --radius-none:0px;
+    --radius-sm:6px;
+    --radius-pill:999px;
+    --radius-circle:50%;
+  }
+
+  /* ============================================
+     2. SEMANTIC TOKENS
+     ============================================ */
+  :root{
+    --surface-page:var(--color-cream-50);
+    --surface-media:var(--color-tan-300);
+    --surface-card:var(--color-white);
+
+    --text-primary:var(--color-black-900);
+    --text-secondary:var(--color-gray-600);
+    --text-on-accent:var(--color-white);
+
+    --border-subtle:var(--color-gray-300);
+
+    --accent:var(--color-olive-600);
+    --accent-hover:var(--color-olive-700);
+    --accent-soft:var(--color-olive-100);
+  }
+
+  /* ============================================
+     3. COMPONENT TOKENS
+     ============================================ */
+  :root{
+    --button-bg:var(--accent);
+    --button-bg-hover:var(--accent-hover);
+    --button-text:var(--text-on-accent);
+    --button-radius:var(--radius-pill);
+    --button-padding:14px 28px;
+
+    --stat-number-color:var(--accent);
+    --stat-label-color:var(--text-secondary);
+
+    --icon-color:var(--text-primary);
+    --icon-size:28px;
+
+    --social-bg:var(--accent);
+    --social-icon-color:var(--text-on-accent);
+    --social-size:40px;
+
+    --divider-color:var(--border-subtle);
+    --divider-weight:1px;
+
+    --nav-link-color:var(--text-primary);
+    --nav-gap:32px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--surface-page);
+    color:var(--text-primary);
+    font-family:var(--font-body);
+    line-height:1.6;
+    padding-bottom:var(--space-10);
+  }
+
+  h1,h2,h3,h4{font-family:var(--font-heading);color:var(--text-primary);line-height:1.1;}
+
+  .wrap{max-width:1140px;margin:0 auto;padding:0 var(--space-5);}
+
+  /* ---------- top header ---------- */
+  .ds-header{
+    background:var(--color-black-900);
+    color:var(--color-cream-50);
+    padding:var(--space-8) 0 var(--space-7);
+  }
+  .ds-header .eyebrow{
+    font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--color-tan-300);font-weight:600;margin-bottom:var(--space-3);
+  }
+  .ds-header h1{font-size:40px;font-weight:800;margin-bottom:var(--space-2);color:var(--color-cream-50);}
+  .ds-header p{color:#C9C6BC;max-width:640px;font-size:15px;}
+
+  /* ---------- section nav (sticky) ---------- */
+  .ds-nav{
+    position:sticky;top:0;z-index:10;
+    background:rgba(246,244,238,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:var(--divider-weight) solid var(--divider-color);
+  }
+  .ds-nav .wrap{display:flex;gap:var(--nav-gap);padding-top:var(--space-3);padding-bottom:var(--space-3);flex-wrap:wrap;}
+  .ds-nav a{
+    font-size:13px;font-weight:600;color:var(--nav-link-color);
+    text-decoration:none;letter-spacing:.02em;
+    padding:6px 2px;border-bottom:2px solid transparent;
+  }
+  .ds-nav a:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ---------- sections ---------- */
+  section.ds-section{padding:var(--space-9) 0;border-bottom:var(--divider-weight) solid var(--divider-color);}
+  section.ds-section:last-of-type{border-bottom:none;}
+  .ds-section h2{font-size:28px;font-weight:800;margin-bottom:var(--space-2);}
+  .ds-section .ds-desc{color:var(--text-secondary);font-size:15px;max-width:680px;margin-bottom:var(--space-6);}
+
+  /* ---------- color swatches ---------- */
+  .swatch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--space-5);}
+  .swatch{border:var(--divider-weight) solid var(--border-subtle);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-card);}
+  .swatch .chip{height:88px;}
+  .swatch .meta{padding:var(--space-3) var(--space-4);}
+  .swatch .meta .name{font-weight:700;font-size:13px;}
+  .swatch .meta .hex{font-size:12px;color:var(--text-secondary);font-family:monospace;}
+  .swatch .meta .role{font-size:12px;color:var(--text-secondary);margin-top:2px;}
+
+  /* ---------- typography ---------- */
+  .type-row{display:flex;align-items:baseline;gap:var(--space-6);padding:var(--space-5) 0;border-bottom:var(--divider-weight) solid var(--border-subtle);flex-wrap:wrap;}
+  .type-row:last-child{border-bottom:none;}
+  .type-row .label{width:160px;flex:none;font-size:12px;color:var(--text-secondary);font-family:monospace;}
+  .type-sample{flex:1;min-width:280px;}
+  .type-meta{font-size:12px;color:var(--text-secondary);margin-top:var(--space-2);font-family:monospace;}
+
+  .t-display{font-family:var(--font-heading);font-weight:800;font-size:56px;}
+  .t-h2{font-family:var(--font-heading);font-weight:800;font-size:34px;}
+  .t-h3{font-family:var(--font-heading);font-weight:700;font-size:20px;}
+  .t-body-l{font-family:var(--font-body);font-weight:500;font-size:18px;}
+  .t-body{font-family:var(--font-body);font-weight:400;font-size:15px;}
+  .t-small{font-family:var(--font-body);font-weight:600;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--text-secondary);}
+  .t-stat{font-family:var(--font-heading);font-weight:800;font-size:36px;color:var(--accent);}
+
+  /* ---------- spacing ---------- */
+  .space-row{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-3);}
+  .space-row .bar{background:var(--accent);height:14px;border-radius:3px;}
+  .space-row .label{width:130px;flex:none;font-size:12px;font-family:monospace;color:var(--text-secondary);}
+
+  /* ---------- buttons ---------- */
+  .demo-row{display:flex;gap:var(--space-5);flex-wrap:wrap;align-items:center;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    background:var(--button-bg);color:var(--button-text);
+    border:none;border-radius:var(--button-radius);
+    padding:var(--button-padding);
+    font-family:var(--font-body);font-weight:600;font-size:14px;
+    cursor:pointer;transition:background .15s ease;
+  }
+  .btn:hover{background:var(--button-bg-hover);}
+  .btn.outline{background:transparent;color:var(--text-primary);border:1px solid var(--border-subtle);}
+  .btn.outline:hover{border-color:var(--accent);color:var(--accent);background:transparent;}
+
+  /* ---------- stats ---------- */
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6) var(--space-7);max-width:460px;}
+  .stat .num{font-family:var(--font-heading);font-weight:800;font-size:36px;color:var(--stat-number-color);}
+  .stat .label{font-size:13px;color:var(--stat-label-color);margin-top:4px;}
+
+  /* ---------- feature icons ---------- */
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;border-top:var(--divider-weight) solid var(--border-subtle);border-left:var(--divider-weight) solid var(--border-subtle);max-width:640px;}
+  .feature{padding:var(--space-5);border-right:var(--divider-weight) solid var(--border-subtle);border-bottom:var(--divider-weight) solid var(--border-subtle);}
+  .feature .icon{width:var(--icon-size);height:var(--icon-size);color:var(--icon-color);margin-bottom:var(--space-3);}
+  .feature h4{font-size:16px;font-weight:700;margin-bottom:4px;}
+  .feature p{font-size:13px;color:var(--text-secondary);}
+
+  /* ---------- social icons ---------- */
+  .social-row{display:flex;gap:var(--space-3);}
+  .social{
+    width:var(--social-size);height:var(--social-size);border-radius:var(--radius-circle);
+    background:var(--social-bg);color:var(--social-icon-color);
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  /* ---------- nav mock ---------- */
+  .navbar-mock{display:flex;align-items:center;justify-content:space-between;background:var(--surface-card);border:var(--divider-weight) solid var(--border-subtle);border-radius:var(--radius-sm);padding:var(--space-4) var(--space-5);}
+  .navbar-mock .logo{font-family:var(--font-heading);font-weight:800;font-size:16px;}
+  .navbar-mock .links{display:flex;gap:var(--nav-gap);list-style:none;}
+  .navbar-mock .links a{text-decoration:none;color:var(--nav-link-color);font-size:13px;font-weight:500;}
+
+  /* ---------- play / media mock ---------- */
+  .media-mock{
+    background:var(--surface-media);height:220px;border-radius:var(--radius-none);
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+  .play-btn{
+    width:56px;height:56px;border-radius:var(--radius-circle);
+    background:rgba(255,255,255,.35);border:1px solid rgba(255,255,255,.6);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .play-btn svg{margin-left:3px;}
+
+  code.inline{background:var(--color-cream-100);padding:2px 6px;border-radius:4px;font-size:12px;}
+
+  table.token-table{width:100%;border-collapse:collapse;margin-top:var(--space-4);}
+  table.token-table th, table.token-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border-subtle);font-size:13px;}
+  table.token-table th{color:var(--text-secondary);font-weight:600;text-transform:uppercase;font-size:11px;letter-spacing:.04em;}
+  table.token-table td code{font-family:monospace;}
+
+  @media (max-width:640px){
+    .t-display{font-size:38px;}
+    .stat-grid, .feature-grid{grid-template-columns:1fr;}
+    .ds-header h1{font-size:28px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="ds-header">
+    <div class="wrap">
+      <div class="eyebrow">Design System</div>
+      <h1>Bent Ginsburg — Psychologist</h1>
+      <p>Système de design extrait de la maquette fournie : palette, typographie, espacement et composants, organisés en tokens primitifs → sémantiques → composants.</p>
+    </div>
+  </header>
+
+  <nav class="ds-nav">
+    <div class="wrap">
+      <a href="#colors">Couleurs</a>
+      <a href="#type">Typographie</a>
+      <a href="#spacing">Espacement</a>
+      <a href="#buttons">Boutons</a>
+      <a href="#stats">Stats</a>
+      <a href="#features">Features</a>
+      <a href="#social">Icônes sociales</a>
+      <a href="#navbar">Navbar</a>
+      <a href="#media">Média</a>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- COLORS -->
+    <section class="ds-section" id="colors">
+      <h2>Couleurs</h2>
+      <p class="ds-desc">Palette primitive, avec son rôle sémantique associé. Fond crème chaud, accent vert olive unique, texte quasi noir.</p>
+      <div class="swatch-grid">
+        <div class="swatch"><div class="chip" style="background:var(--color-cream-50)"></div><div class="meta"><div class="name">cream-50</div><div class="hex">#F6F4EE</div><div class="role">surface-page</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-cream-100)"></div><div class="meta"><div class="name">cream-100</div><div class="hex">#EFEBDF</div><div class="role">fond alterné</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-tan-300)"></div><div class="meta"><div class="name">tan-300</div><div class="hex">#D8CDB8</div><div class="role">surface-media</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-white);border-bottom:1px solid var(--border-subtle)"></div><div class="meta"><div class="name">white</div><div class="hex">#FFFFFF</div><div class="role">surface-card</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-black-900)"></div><div class="meta"><div class="name">black-900</div><div class="hex">#1C1B18</div><div class="role">text-primary</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-gray-600)"></div><div class="meta"><div class="name">gray-600</div><div class="hex">#6F6C64</div><div class="role">text-secondary</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-gray-300)"></div><div class="meta"><div class="name">gray-300</div><div class="hex">#D9D5C9</div><div class="role">border-subtle</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-olive-600)"></div><div class="meta"><div class="name">olive-600</div><div class="hex">#58643F</div><div class="role">accent</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-olive-700)"></div><div class="meta"><div class="name">olive-700</div><div class="hex">#434C30</div><div class="role">accent-hover</div></div></div>
+        <div class="swatch"><div class="chip" style="background:var(--color-olive-100)"></div><div class="meta"><div class="name">olive-100</div><div class="hex">#E4E8DA</div><div class="role">accent-soft</div></div></div>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section class="ds-section" id="type">
+      <h2>Typographie</h2>
+      <p class="ds-desc">Titres en <code class="inline">Poppins</code> (gras géométrique), texte courant en <code class="inline">Inter</code>.</p>
+
+      <div class="type-row">
+        <div class="label">Display / H1</div>
+        <div class="type-sample">
+          <div class="t-display">Bent Ginsburg</div>
+          <div class="type-meta">Poppins · 800 · 56–64px / 1.05</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="label">H2 — section</div>
+        <div class="type-sample">
+          <div class="t-h2">As a Psychologist, I empower individuals</div>
+          <div class="type-meta">Poppins · 800 · 34–38px / 1.15</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="label">H3 — carte</div>
+        <div class="type-sample">
+          <div class="t-h3">Personal Boundaries</div>
+          <div class="type-meta">Poppins · 700 · 20px / 1.3</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="label">Body Large</div>
+        <div class="type-sample">
+          <div class="t-body-l">I provide personalized therapy in a safe, supportive environment.</div>
+          <div class="type-meta">Inter · 500 · 18px / 1.55</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="label">Body</div>
+        <div class="type-sample">
+          <div class="t-body">Understanding and respecting personal boundaries is essential for emotional well-being.</div>
+          <div class="type-meta">Inter · 400 · 15px / 1.6</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="label">Small / Label</div>
+        <div class="type-sample">
+          <div class="t-small">Qualification</div>
+          <div class="type-meta">Inter · 600 · 13px · uppercase, tracking +0.02em</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="label">Stat number</div>
+        <div class="type-sample">
+          <div class="t-stat">300+</div>
+          <div class="type-meta">Poppins · 800 · 36px · color: accent</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SPACING -->
+    <section class="ds-section" id="spacing">
+      <h2>Échelle d'espacement</h2>
+      <p class="ds-desc">Base 8px. Utilisée pour les paddings, gaps et marges verticales entre sections.</p>
+      <div class="space-row"><div class="label">space-1 · 4px</div><div class="bar" style="width:4px"></div></div>
+      <div class="space-row"><div class="label">space-2 · 8px</div><div class="bar" style="width:8px"></div></div>
+      <div class="space-row"><div class="label">space-3 · 12px</div><div class="bar" style="width:12px"></div></div>
+      <div class="space-row"><div class="label">space-4 · 16px</div><div class="bar" style="width:16px"></div></div>
+      <div class="space-row"><div class="label">space-5 · 24px</div><div class="bar" style="width:24px"></div></div>
+      <div class="space-row"><div class="label">space-6 · 32px</div><div class="bar" style="width:32px"></div></div>
+      <div class="space-row"><div class="label">space-7 · 48px</div><div class="bar" style="width:48px"></div></div>
+      <div class="space-row"><div class="label">space-8 · 64px</div><div class="bar" style="width:64px"></div></div>
+      <div class="space-row"><div class="label">space-9 · 96px</div><div class="bar" style="width:96px"></div></div>
+      <div class="space-row"><div class="label">space-10 · 128px</div><div class="bar" style="width:128px"></div></div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section class="ds-section" id="buttons">
+      <h2>Boutons</h2>
+      <p class="ds-desc">Seul élément totalement arrondi (pill) de l'interface — réservé aux appels à l'action.</p>
+      <div class="demo-row">
+        <button class="btn">Book a session</button>
+        <button class="btn" style="background:var(--button-bg-hover)">Book a session — hover</button>
+        <button class="btn outline">Learn more</button>
+      </div>
+      <table class="token-table">
+        <tr><th>Token</th><th>Valeur</th></tr>
+        <tr><td>--button-bg</td><td><code>var(--accent)</code></td></tr>
+        <tr><td>--button-bg-hover</td><td><code>var(--accent-hover)</code></td></tr>
+        <tr><td>--button-text</td><td><code>var(--text-on-accent)</code></td></tr>
+        <tr><td>--button-radius</td><td><code>999px (pill)</code></td></tr>
+        <tr><td>--button-padding</td><td><code>14px 28px</code></td></tr>
+      </table>
+    </section>
+
+    <!-- STATS -->
+    <section class="ds-section" id="stats">
+      <h2>Bloc "About Me" — stats</h2>
+      <p class="ds-desc">Grille 2×2 de chiffres clés, nombre en accent, label en gris.</p>
+      <div class="stat-grid">
+        <div class="stat"><div class="num">8+</div><div class="label">years of experience</div></div>
+        <div class="stat"><div class="num">300+</div><div class="label">clients feeling better</div></div>
+        <div class="stat"><div class="num">3K+</div><div class="label">hours of sessions</div></div>
+        <div class="stat"><div class="num">3</div><div class="label">published books</div></div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="ds-section" id="features">
+      <h2>Grille de features</h2>
+      <p class="ds-desc">Icône ligne fine + titre + description, séparées par des filets 1px (pas de cartes avec fond).</p>
+      <div class="feature-grid">
+        <div class="feature">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          <h4>Personal Boundaries</h4>
+          <p>Understanding and respecting personal boundaries is essential for emotional well-being.</p>
+        </div>
+        <div class="feature">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="9" r="6"/><circle cx="15" cy="9" r="6"/><circle cx="12" cy="15" r="6"/></svg>
+          <h4>Inner Balance</h4>
+          <p>Inner balance is crucial for overall well-being, providing stability and clarity in life.</p>
+        </div>
+        <div class="feature">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></svg>
+          <h4>Stable Self-esteem</h4>
+          <p>Stable self-esteem is essential for resilience and navigating life's challenges with confidence.</p>
+        </div>
+        <div class="feature">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>
+          <h4>Healthy Relationships</h4>
+          <p>Healthy relationships are vital for emotional support, personal growth, and overall well-being.</p>
+        </div>
+        <div class="feature">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg>
+          <h4>Embracing Change</h4>
+          <p>Embracing change is essential for personal growth, adaptability, and seizing new opportunities.</p>
+        </div>
+        <div class="feature">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l16 7-7 3-3 7-6-17z"/></svg>
+          <h4>Personal Motivation</h4>
+          <p>Personal motivation is crucial for driving progress, achieving goals, and realising full potential.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOCIAL -->
+    <section class="ds-section" id="social">
+      <h2>Icônes sociales</h2>
+      <p class="ds-desc">Icônes circulaires pleines, fond accent, icône blanche — utilisées pour Instagram, Facebook, YouTube.</p>
+      <div class="social-row">
+        <div class="social">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </div>
+        <div class="social">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V5h-3c-2.2 0-4 1.8-4 4v2H8v4h2v6h4v-6h3l1-4h-4v-2c0-.6.4-1 1-1z"/></svg>
+        </div>
+        <div class="social">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M10 9l5 3-5 3V9z" fill="currentColor" stroke="none"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- NAVBAR -->
+    <section class="ds-section" id="navbar">
+      <h2>Navbar</h2>
+      <p class="ds-desc">Logo texte à gauche, liens centraux, bouton pill en CTA à droite.</p>
+      <nav class="navbar-mock">
+        <div class="logo">Bent Ginsburg</div>
+        <ul class="links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">What I do</a></li>
+          <li><a href="#">Qualification</a></li>
+          <li><a href="#">Prices</a></li>
+        </ul>
+        <button class="btn" style="padding:10px 20px;">Book a session</button>
+      </nav>
+    </section>
+
+    <!-- MEDIA -->
+    <section class="ds-section" id="media" style="border-bottom:none;">
+      <h2>Bloc média</h2>
+      <p class="ds-desc">Fond beige/tan pour les zones photo et vidéo, coins non arrondis, bouton play circulaire translucide.</p>
+      <div class="media-mock">
+        <div class="play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

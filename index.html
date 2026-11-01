@@ -22,8 +22,22 @@
         <li><a href="#portfolio">Portfolio</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="#contact" class="btn sm">Réserver une séance</a>
+      <div class="nav-actions">
+        <a href="#contact" class="btn sm">Réserver une séance</a>
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+      </div>
     </div>
+    <nav class="mobile-menu" id="mobileMenu">
+      <div class="wrap">
+        <a href="#about">À propos</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn">Réserver une séance</a>
+      </div>
+    </nav>
   </header>
 
   <!-- HERO -->

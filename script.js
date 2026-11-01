@@ -17,6 +17,36 @@
     window.addEventListener("scroll", updateNavbar, { passive: true });
   }
 
+  /* ---------- Menu mobile (burger) ---------- */
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+
+  if (navToggle && mobileMenu) {
+    var closeMobileMenu = function () {
+      navToggle.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded", "false");
+      mobileMenu.classList.remove("is-open");
+    };
+
+    navToggle.addEventListener("click", function () {
+      var isOpen = navToggle.classList.toggle("is-open");
+      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      mobileMenu.classList.toggle("is-open", isOpen);
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", closeMobileMenu);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") closeMobileMenu();
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 860) closeMobileMenu();
+    });
+  }
+
   /* ---------- Révélation au scroll ---------- */
   var revealEls = document.querySelectorAll(".reveal");
 

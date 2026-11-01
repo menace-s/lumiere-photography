@@ -29,16 +29,25 @@
         </button>
       </div>
     </div>
-    <nav class="mobile-menu" id="mobileMenu">
-      <div class="wrap">
-        <a href="#about">À propos</a>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#contact">Contact</a>
-        <a href="#contact" class="btn">Réserver une séance</a>
-      </div>
-    </nav>
   </header>
+
+  <!-- POP-UP MENU MOBILE (hors de la navbar pour ne pas hériter de son backdrop-filter) -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu-backdrop" data-menu-close></div>
+    <div class="mobile-menu-panel" role="dialog" aria-modal="true" aria-label="Menu de navigation">
+      <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Fermer le menu" data-menu-close>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>
+      </button>
+      <div class="eyebrow">Menu</div>
+      <nav class="mobile-menu-links">
+        <a href="#about" data-menu-close>À propos</a>
+        <a href="#services" data-menu-close>Services</a>
+        <a href="#portfolio" data-menu-close>Portfolio</a>
+        <a href="#contact" data-menu-close>Contact</a>
+      </nav>
+      <a href="#contact" class="btn" data-menu-close>Réserver une séance</a>
+    </div>
+  </div>
 
   <!-- HERO -->
   <section class="hero" style="border-bottom:none;padding-bottom:0;">

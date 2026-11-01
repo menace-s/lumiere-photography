@@ -17,25 +17,38 @@
     window.addEventListener("scroll", updateNavbar, { passive: true });
   }
 
-  /* ---------- Menu mobile (burger) ---------- */
+  /* ---------- Menu mobile (pop-up) ---------- */
   var navToggle = document.getElementById("navToggle");
   var mobileMenu = document.getElementById("mobileMenu");
 
   if (navToggle && mobileMenu) {
+    var openMobileMenu = function () {
+      navToggle.classList.add("is-open");
+      navToggle.setAttribute("aria-expanded", "true");
+      mobileMenu.classList.add("is-open");
+      mobileMenu.setAttribute("aria-hidden", "false");
+      document.body.classList.add("menu-open");
+    };
+
     var closeMobileMenu = function () {
       navToggle.classList.remove("is-open");
       navToggle.setAttribute("aria-expanded", "false");
       mobileMenu.classList.remove("is-open");
+      mobileMenu.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("menu-open");
     };
 
     navToggle.addEventListener("click", function () {
-      var isOpen = navToggle.classList.toggle("is-open");
-      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      mobileMenu.classList.toggle("is-open", isOpen);
+      if (mobileMenu.classList.contains("is-open")) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
+      }
     });
 
-    mobileMenu.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", closeMobileMenu);
+    /* ferme au clic sur le fond assombri, la croix, ou un lien/CTA */
+    mobileMenu.querySelectorAll("[data-menu-close]").forEach(function (el) {
+      el.addEventListener("click", closeMobileMenu);
     });
 
     document.addEventListener("keydown", function (e) {

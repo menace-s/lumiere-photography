@@ -1,0 +1,93 @@
+/* =====================================================
+   LUMIÈRE STUDIO — interactions & animations
+   Vanilla JS, sans dépendance.
+   ===================================================== */
+(function () {
+  "use strict";
+
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Navbar : ombre au scroll ---------- */
+  var navbar = document.querySelector(".navbar");
+  if (navbar) {
+    var updateNavbar = function () {
+      navbar.classList.toggle("is-scrolled", window.scrollY > 8);
+    };
+    updateNavbar();
+    window.addEventListener("scroll", updateNavbar, { passive: true });
+  }
+
+  /* ---------- Révélation au scroll ---------- */
+  var revealEls = document.querySelectorAll(".reveal");
+
+  if (reducedMotion || !("IntersectionObserver" in window)) {
+    revealEls.forEach(function (el) {
+      el.classList.add("is-visible");
+    });
+  } else {
+    var revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
+    );
+    revealEls.forEach(function (el) {
+      revealObserver.observe(el);
+    });
+  }
+
+  /* ---------- Compteur animé des statistiques ---------- */
+  var statNums = document.querySelectorAll(".stat .num[data-value]");
+
+  var animateCount = function (el) {
+    var target = parseFloat(el.dataset.value);
+    var suffix = el.dataset.suffix || "";
+
+    if (reducedMotion || isNaN(target)) {
+      el.textContent = target + suffix;
+      return;
+    }
+
+    var duration = 1200;
+    var start = null;
+
+    var step = function (timestamp) {
+      if (start === null) start = timestamp;
+      var progress = Math.min((timestamp - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = target + suffix;
+      }
+    };
+    requestAnimationFrame(step);
+  };
+
+  if (statNums.length) {
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      statNums.forEach(animateCount);
+    } else {
+      var statObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              animateCount(entry.target);
+              statObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.4 }
+      );
+      statNums.forEach(function (el) {
+        statObserver.observe(el);
+      });
+    }
+  }
+})();
